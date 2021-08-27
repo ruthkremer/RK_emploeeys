@@ -4,7 +4,19 @@ import { actions } from '../redux/action'
 
 import { DataGrid } from '@material-ui/data-grid';
 import CheckIcon from '@material-ui/icons/Check';
+import styled from 'styled-components'
 
+const Button = styled.button`
+  /* Adapt the colors based on primary prop */
+  background: ${props => props.primary ? "palevioletred" : "white"};
+  color: ${props => props.primary ? "white" : "palevioletred"};
+
+  font-size: 1em;
+  margin-right: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid palevioletred;
+  border-radius: 3px;
+`;
 
 const mapStateToProps = (state) => {
     return {
@@ -18,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Employees(props) {
     const [rowsSelected, setRowsSelected] = useState([]);
-    const columns = [{ field: 'id', width: 150 },
+    const columns = [{ field: 'id', width: 100 },
     { field: 'first_name', width: 150 },
     { field: 'last_name', width: 150 },
     { field: 'email', width: 200 },
@@ -43,10 +55,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Employees(p
         setRowsSelected(rowsSelected)
     }
     return (
-        <div style={{ display: 'flex', height: '100%' }}>
-            <button onClick={() => props.updatePayments({ rowsSelected, isPaymented: true })} >Payments</button>
-            <button onClick={() => props.updatePayments({ rowsSelected, isPaymented: false })} >cancel Payments</button>
-            <div style={{ width: "100%" }}>
+        <div>
+            <Button onClick={() => props.updatePayments({ rowsSelected, isPaymented: true })}>Pay</Button>
+            <Button primary onClick={() => props.updatePayments({ rowsSelected, isPaymented: false })} >Un Pay</Button>
+
+            <div>
                 <DataGrid autoHeight
                     columns={columns}
                     rows={props ? props.employees ? props.employees : [] : []}

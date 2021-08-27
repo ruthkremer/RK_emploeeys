@@ -8,7 +8,7 @@ import CheckIcon from '@material-ui/icons/Check';
 
 const mapStateToProps = (state) => {
     return {
-        employees: state.employees,
+        employee: state.employees[0],
     };
 }
 const mapDispatchToProps = (dispatch) => ({
@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Employees(props) {
-    const [rowsSelected, setRowsSelected] = useState([]);
 
     useEffect(() => {
         if (!props.employees){

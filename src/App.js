@@ -1,10 +1,19 @@
 import './App.css';
-import Employees  from './componnents/employees';
+import Employees from './componnents/employees';
+import styled from 'styled-components'
+
+const Wrapper = styled.section`
+  padding: 0.8em;
+  background: papayawhip;
+`;
+
 
 function App() {
   return (
     <div className="App">
-      <Employees></Employees>
+      <Wrapper>
+        <Employees></Employees>
+      </Wrapper>
     </div>
   );
 }
