@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-import {Employees} from './componnents/employees';
+import Employees  from './componnents/employees';
 
 function App() {
   return (
     <div className="App">
-<Employees></Employees>      
+      <Employees></Employees>
     </div>
   );
 }

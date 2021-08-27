@@ -1,44 +1,61 @@
 import React, { useEffect, useState } from 'react';
-import employeesData from '../MOCK_DATA.json';
-import { DataGrid } from '@material-ui/data-grid';
+import { connect } from 'react-redux';
+import { actions } from '../redux/action'
 
-export const Employees = () => {
-    // Declare a new state variable, which we'll call "count"
-    const [employees, setEmployees] = useState(employeesData);
+import { DataGrid } from '@material-ui/data-grid';
+import CheckIcon from '@material-ui/icons/Check';
+
+
+const mapStateToProps = (state) => {
+    return {
+        employees: state.employees,
+    };
+}
+const mapDispatchToProps = (dispatch) => ({
+    setEmployees: () => dispatch(actions.setEmployees()),
+    updatePayments: (rowsSelected) => dispatch(actions.updatePayments(rowsSelected)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(function Employees(props) {
     const [rowsSelected, setRowsSelected] = useState([]);
-    let columns;
-    const rows = [{ "id": 1, "first_name": "Babita", "last_name": "Attwoull", "email": "battwoull0@istockphoto.com", "gender": "Female", "birthdate": "31/08/1989", "salary": "€2751,61" }]
+
     useEffect(() => {
-        console.log(employees);
-        columns = employees ? employees : []
+        if (!props.employees){
+            props.setEmployees();
+        }
     })
-    const payments = (rowsSelected) => {
+    
+    const selectedRow = (rowsSelected) => {
         setRowsSelected(rowsSelected)
-        // payments=[]
-        // rowsSelected.forEach(row => {
-        //     employees[row-1].paymented = true
-        // });
     }
     return (
         <div style={{ display: 'flex', height: '100%' }}>
-            <button >Payments</button>
+            <button onClick={()=>props.updatePayments({rowsSelected,isPaymented:true})} >Payments</button>
+            <button onClick={()=>props.updatePayments({rowsSelected,isPaymented:false})} >cancel Payments</button>
             <div style={{ width: "100%" }}>
                 <DataGrid autoHeight
                     columns={[{ field: 'id', width: 150 },
                     { field: 'first_name', width: 150 },
                     { field: 'last_name', width: 150 },
                     { field: 'email', width: 200 },
-
                     { field: 'birthdate', width: 150 },
                     { field: 'salary', width: 150 },
-                    { field: 'paymented', width: 150 },
+                    { field: 'gender', width: 150 },
+                    {
+                        field: 'paymented', width: 150,
+                        renderCell: (params) => (
+                            <strong>
+                                {params.row.paymented ? <CheckIcon></CheckIcon> : "X"}
+                            </strong>)
+                    },
                     ]}
-                    rows={employees}
+                    rows={props ? props.employees ? props.employees : [] : []}
                     pageSize={10}
                     checkboxSelection
-                    onSelectionModelChange={(rowsSelected) => payments(rowsSelected)}
+                    onSelectionModelChange={(rowsSelected) => selectedRow(rowsSelected)}
                 />
             </div>
         </div>
     );
-}
+
+})
