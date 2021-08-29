@@ -24,7 +24,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Employees(p
     { field: 'first_name', width: 150 },
     { field: 'last_name', width: 150 },
     { field: 'email', width: 200 },
-    { field: 'birthdate', width: 150 },
+    {
+        field: 'birthdate',
+        width: 150,
+        valueFormatter: (params) => {
+            let date = params.row.birthdate;
+            return  date ? `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`:null;
+        }
+
+    },
     { field: 'salary', width: 150 },
     { field: 'gender', width: 150 },
     {
