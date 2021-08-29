@@ -1,11 +1,12 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Getting Started git clone 
+git clone https://github.com/ruthkremer/RK_emploeeys.git
+[git clone](https://github.com/ruthkremer/RK_emploeeys.git)
 
 ## Available Scripts
 
 In the project directory, you can run:
-
+### `npm i`
+run for install libaries
 ### `npm start`
 
 Runs the app in the development mode.\
