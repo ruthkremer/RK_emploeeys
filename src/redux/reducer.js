@@ -3,7 +3,8 @@ import createReducer from "./reducerUtils";
 import employeesData from '../MOCK_DATA.json';
 
 const initialState = {
-    employees: null
+    employees: null,
+    rowsSelected: null
 }
 const employeeReducer = {
 
@@ -12,12 +13,14 @@ const employeeReducer = {
         state.employees = [...employeesData];
     },
     updatePayments(state, action) {
-        const isPaymented = action.payload.isPaymented
-        const rowsSelected = action.payload.rowsSelected;
-        if (rowsSelected.length)
-            rowsSelected.forEach(row => {
+        const isPaymented = action.payload;
+        if (state.rowsSelected.length)
+            state.rowsSelected.forEach(row => {
                 state.employees[row - 1].paymented = isPaymented;
             });
+    },
+    setRowsSelected(state, action) {
+        state.rowsSelected = action.payload;
     }
 
 }

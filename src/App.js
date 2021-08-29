@@ -1,20 +1,27 @@
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,Route
+} from "react-router-dom";
 import Employees from './componnents/employees';
-import styled from 'styled-components'
-
-const Wrapper = styled.section`
-  padding: 0.8em;
-  background: papayawhip;
-`;
-
+import Payments from './componnents/payments';
+import { Wrapper } from './componnents/ui'
 
 function App() {
   return (
-    <div className="App">
-      <Wrapper>
-        <Employees></Employees>
-      </Wrapper>
-    </div>
+    <Wrapper>
+      <Router>
+        <Switch>
+          <Route path="/payments">
+            <Payments />
+          </Route>
+         
+          <Route path="/">
+            <Employees />
+          </Route>
+        </Switch>
+      </Router>
+    </Wrapper >
   );
 }
 

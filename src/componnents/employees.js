@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { actions } from '../redux/action'
-
+import {
+    Link
+} from "react-router-dom";
 import { DataGrid } from '@material-ui/data-grid';
 import CheckIcon from '@material-ui/icons/Check';
-import styled from 'styled-components'
-
-const Button = styled.button`
-  /* Adapt the colors based on primary prop */
-  background: ${props => props.primary ? "palevioletred" : "white"};
-  color: ${props => props.primary ? "white" : "palevioletred"};
-
-  font-size: 1em;
-  margin-right: 1em;
-  padding: 0.25em 1em;
-  border: 2px solid palevioletred;
-  border-radius: 3px;
-`;
+import { Button } from './ui'
 
 const mapStateToProps = (state) => {
     return {
@@ -25,7 +15,7 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = (dispatch) => ({
     setEmployees: () => dispatch(actions.setEmployees()),
-    updatePayments: (rowsSelected) => dispatch(actions.updatePayments(rowsSelected)),
+    setRowsSelected: (rowsSelected) => dispatch(actions.setRowsSelected(rowsSelected)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(function Employees(props) {
@@ -56,8 +46,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(function Employees(p
     }
     return (
         <div>
-            <Button onClick={() => props.updatePayments({ rowsSelected, isPaymented: true })}>Pay</Button>
-            <Button primary onClick={() => props.updatePayments({ rowsSelected, isPaymented: false })} >Un Pay</Button>
+            <Link to="/payments">
+                <Button primary
+                    onClick={() => props.setRowsSelected(rowsSelected)}>
+                    Payments</Button>
+            </Link>
 
             <div>
                 <DataGrid autoHeight
